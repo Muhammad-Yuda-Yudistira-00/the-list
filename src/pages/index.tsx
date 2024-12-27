@@ -1,6 +1,5 @@
-import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Alert } from "flowbite-react";
+import Jumbotron from "@/components/home/Jumbotron";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,9 +13,8 @@ const geistMono = Geist_Mono({
 
 export default function Home() {
   return (
-    <div>
-      <h1>Home Page</h1>
-      <Alert color="info">page success</Alert>
+    <div className="pt-14">
+      <Jumbotron />
     </div>
   );
 }
