@@ -1,7 +1,7 @@
 import MyNavbar from "@/components/layout/MyNavbar"
 import MyFooter from "@/components/layout/MyFooter"
 
-export default function ShellApp({children}) {
+export default function ShellApp({children}: {children: React.ReactNode}) {
 	return (
 		<div className="container-fluid">
 	      <div className="w-full fixed">

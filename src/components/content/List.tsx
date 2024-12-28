@@ -16,6 +16,10 @@ export default function List({code}: {code: string}) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        if (!API_KEY) {
+          throw new Error("API key is missing");
+        }
+
       const res = await fetch(`${API_URL}/checklist/${code}/task`, {
         method: "GET",
         headers: {
@@ -43,7 +47,7 @@ export default function List({code}: {code: string}) {
     fetchData()
   }, [code, API_URL, API_KEY])
 
-  const handleInput = async (e: React.FormEvent<HTMLDivElement>) => {
+  const handleInput = async (e: React.FormEvent<HTMLLabelElement>) => {
     const target = e.target as HTMLElement;
     const text = target.innerText.trim();
     const fieldID = target.dataset.id;
@@ -54,7 +58,7 @@ export default function List({code}: {code: string}) {
     }
 
     // Simpan posisi kursor
-    const cursorPosition = getCursorPosition(target);
+    const cursorPosition = getCursorPosition();
 
     try {
       setTasks((prevTasks) =>
@@ -73,6 +77,10 @@ export default function List({code}: {code: string}) {
       // Kirim data ke API
       const formData = new FormData();
       formData.append("title", text);
+
+      if (!API_KEY) {
+        throw new Error("API key is missing");
+      }
 
       await fetch(`${API_URL}/checklist/${code}/task/${fieldID}`, {
         method: "PATCH",
@@ -106,6 +114,10 @@ export default function List({code}: {code: string}) {
       // Kirim perubahan ke API
       const formData = new FormData();
       formData.append("status", isChecked ? "done" : "in_progress");
+
+      if (!API_KEY) {
+        throw new Error("API key is missing");
+      }
 
       await fetch(`${API_URL}/checklist/${code}/task/${taskId}`, {
         method: "PATCH",

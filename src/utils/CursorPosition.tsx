@@ -1,4 +1,4 @@
- const getCursorPosition = (element: HTMLElement) => {
+ export const getCursorPosition = () => {
   const selection = window.getSelection();
   if (selection && selection.rangeCount > 0) {
     const range = selection.getRangeAt(0);
@@ -10,7 +10,7 @@
   return null;
 };
 
-const setCursorPosition = (element: HTMLElement, position: { startOffset: number; endOffset: number }) => {
+export const setCursorPosition = (element: HTMLElement, position: { startOffset: number; endOffset: number }) => {
   const selection = window.getSelection();
   if (selection) {
     const range = document.createRange();
@@ -20,8 +20,3 @@ const setCursorPosition = (element: HTMLElement, position: { startOffset: number
     selection.addRange(range);
   }
 };
-
-export = {
-	getCursorPosition,	
-  	setCursorPosition,
-}

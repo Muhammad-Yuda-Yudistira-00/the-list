@@ -1,11 +1,12 @@
 import { Button, Navbar, NavbarBrand, NavbarCollapse, NavbarToggle } from "flowbite-react";
 import Link from "next/link";
+import Image from 'next/image';
 
 export default function MyNavbar() {
   return (
     <Navbar fluid rounded>
       <NavbarBrand href="https://flowbite-react.com">
-        <img src="/globe.svg" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
+        <Image src="/globe.svg" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo"  width={20} height={20}  />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white text-gray-700">The List</span>
       </NavbarBrand>
       <div className="flex md:order-2">

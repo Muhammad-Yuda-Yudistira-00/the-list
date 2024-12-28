@@ -11,7 +11,7 @@ type ChecklistProps = {
 	updated_at: string;
 }
 
-export default function task() {
+export default function Checklist() {
 	const router = useRouter()
 	const {checklist: id} = router.query
 	
@@ -29,6 +29,9 @@ export default function task() {
 
 	 useEffect(() => {
 	    const fetchData = async () => {
+	    if (!API_KEY) {
+	        throw new Error("API key is missing");
+	      }
 	      try {
 	        const response = await fetch(`${API_URL}/checklist/${id}`, {
 	        	method: "GET",
@@ -74,7 +77,7 @@ export default function task() {
 	  }
 
 	  // Simpan posisi kursor
-	  const cursorPosition = getCursorPosition(target);
+	  const cursorPosition = getCursorPosition();
 
 	  try {
 	    setChecklist((prevChecklist) => {
@@ -91,6 +94,10 @@ export default function task() {
 	      // Kirim data ke API
 	      const formData = new FormData();
 	      formData.append(fieldType, text);
+
+	      if (!API_KEY) {
+	        throw new Error("API key is missing");
+	      }
 
 	      fetch(`${API_URL}/checklist/${prevChecklist.id}`, {
 	        method: "PATCH",
