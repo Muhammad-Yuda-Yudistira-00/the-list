@@ -1,0 +1,6 @@
+PROJECT 
+created at: monday, 23 december 2024
+
+member:
+- yudistira (fe)
+- titik (be)

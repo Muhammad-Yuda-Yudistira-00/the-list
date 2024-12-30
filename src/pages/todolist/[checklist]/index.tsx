@@ -15,6 +15,8 @@ export default function Checklist() {
 	const router = useRouter()
 	const {checklist: id} = router.query
 	const [isLoading, setIsLoading] = useState(true);
+	const [hasClickedTitle, setHasClickedTitle] = useState(false);
+	const [hasClickedDescription, setHasClickedDescription] = useState(false);
 	
 	const API_URL = process.env.NEXT_PUBLIC_API_URL
 	const API_KEY = process.env.NEXT_PUBLIC_API_KEY
@@ -119,6 +121,33 @@ export default function Checklist() {
 	  }
 	};
 
+	const handleCursorSelection = (e: React.MouseEvent<HTMLDivElement>) => {
+	 const target = e.currentTarget;
+	  const fieldType = target.dataset.type;
+
+	  if (fieldType === "title" && !hasClickedTitle) {
+	    // Seleksi teks untuk title
+	    const selection = window.getSelection();
+	    const range = document.createRange();
+	    range.selectNodeContents(target);
+	    selection?.removeAllRanges();
+	    selection?.addRange(range);
+
+	    // Tandai title sudah diklik
+	    setHasClickedTitle(true);
+	  } else if (fieldType === "description" && !hasClickedDescription) {
+	    // Seleksi teks untuk description
+	    const selection = window.getSelection();
+	    const range = document.createRange();
+	    range.selectNodeContents(target);
+	    selection?.removeAllRanges();
+	    selection?.addRange(range);
+
+	    // Tandai description sudah diklik
+	    setHasClickedDescription(true);
+	  }
+	};
+
 	const handleDeleteChecklist = async (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault()
 		if(!confirm("Are you sure?")) return
@@ -141,12 +170,12 @@ export default function Checklist() {
 
 
 	return (
-		<div className="py-4 text-center m-auto flex flex-col items-center justify-center min-h-screen">
-	      <div className="pb-8">
+		<div className="py-4 m-auto flex flex-col items-center justify-center min-h-screen">
+	      <div className="pb-8 text-center">
 	      	{isLoading ? (<p>Loading...</p>) : (
 	      		<>
-		      		<h1 className="text-3xl" data-type="title" suppressContentEditableWarning contentEditable onInput={handleInput}>{checklist.title?? 'Untitle'}</h1>
-		        	<small data-type="description" suppressContentEditableWarning contentEditable onInput={handleInput}>{checklist.description?? 'Description...'}</small>
+		      		<h1 className="text-3xl" data-type="title" suppressContentEditableWarning contentEditable onInput={handleInput} onClick={handleCursorSelection} >{checklist.title?? 'Untitle'}</h1>
+		        	<small data-type="description" suppressContentEditableWarning contentEditable onInput={handleInput} onClick={handleCursorSelection} >{checklist.description?? 'Description...'}</small>
 	      		</>
 	      	)}
 	      </div>
