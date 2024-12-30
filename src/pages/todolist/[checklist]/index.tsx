@@ -114,6 +114,32 @@ export default function Checklist() {
 	  }
 	};
 
+	const handleDeleteChecklist = async (e: Reacr.MouseEvent<HTMLAnchorElement>) => {
+		e.preventDefault()
+		if(!confirm("Are you sure?")) return
+
+		try{
+			if(!API_KEY) throw new Error("apikey is missing!")
+
+			const res = fetch(`${API_URL}/checklist/${checklist.id}`, {
+				method: "DELETE",
+				headers: {
+					"x-api-key": API_KEY,
+				}
+			}).catch((err) => console.error("Error deleted data:", err))
+
+			if(res.ok) {
+				const error = await res.json()
+				console.error("failed to deleting data:", error.message)
+				return
+			}
+
+			router.push('/')
+		} catch(error) {
+			console.error("Error deleting data:", error)
+		}
+	}
+
 
 	return (
 		<div className="py-4 text-center m-auto flex flex-col items-center justify-center min-h-screen">
@@ -122,6 +148,9 @@ export default function Checklist() {
 	        <small data-type="description" suppressContentEditableWarning contentEditable onInput={handleInput}>{checklist.description?? 'Description...'}</small>
 	      </div>
 	      <List code={checklist.code} />
+	      <div className="pt-4">
+	      	<p><a href="#" className="underline" onClick={handleDeleteChecklist}>delete</a> checklist !</p>
+	      </div>
 	    </div>
 		)
 }
