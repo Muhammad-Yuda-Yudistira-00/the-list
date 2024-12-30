@@ -12,9 +12,9 @@ export default function MyNavbar() {
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white text-gray-700">The List</span>
       </NavbarBrand>
       <div className="flex md:order-2">
-        <Link href="/todolist/task">
+        {/*<Link href="/todolist/task">
           <Button>Get started</Button>
-        </Link>
+        </Link>*/}
         <NavbarToggle />
       </div>
       <NavbarCollapse>

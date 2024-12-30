@@ -14,6 +14,7 @@ type ChecklistProps = {
 export default function Checklist() {
 	const router = useRouter()
 	const {checklist: id} = router.query
+	const [isLoading, setIsLoading] = useState(true);
 	
 	const API_URL = process.env.NEXT_PUBLIC_API_URL
 	const API_KEY = process.env.NEXT_PUBLIC_API_KEY
@@ -30,9 +31,10 @@ export default function Checklist() {
 	 useEffect(() => {
 	 	if(!id) return
 	    const fetchData = async () => {
-	    if (!API_KEY) {
-	        throw new Error("API key is missing");
-	      }
+		    if (!API_KEY) {
+		        throw new Error("API key is missing");
+		      }
+		  setIsLoading(true);
 	      try {
 	        const response = await fetch(`${API_URL}/checklist/${id}`, {
 	        	method: "GET",
@@ -61,7 +63,9 @@ export default function Checklist() {
 	        setChecklist(data);
 	      } catch (error) {
 	        console.error("Error fetching data:", error);
-	      }
+	      } finally {
+            setIsLoading(false);
+        	}
 	    };
 
 	    fetchData();
@@ -139,8 +143,12 @@ export default function Checklist() {
 	return (
 		<div className="py-4 text-center m-auto flex flex-col items-center justify-center min-h-screen">
 	      <div className="pb-8">
-	        <h1 className="text-3xl" data-type="title" suppressContentEditableWarning contentEditable onInput={handleInput}>{checklist.title?? 'Untitle'}</h1>
-	        <small data-type="description" suppressContentEditableWarning contentEditable onInput={handleInput}>{checklist.description?? 'Description...'}</small>
+	      	{isLoading ? (<p>Loading...</p>) : (
+	      		<>
+		      		<h1 className="text-3xl" data-type="title" suppressContentEditableWarning contentEditable onInput={handleInput}>{checklist.title?? 'Untitle'}</h1>
+		        	<small data-type="description" suppressContentEditableWarning contentEditable onInput={handleInput}>{checklist.description?? 'Description...'}</small>
+	      		</>
+	      	)}
 	      </div>
 	      <List code={checklist.code} />
 	      <div className="pt-4">
