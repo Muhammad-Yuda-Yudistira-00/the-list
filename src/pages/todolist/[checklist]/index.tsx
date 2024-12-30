@@ -28,6 +28,7 @@ export default function Checklist() {
 
 
 	 useEffect(() => {
+	 	if(!id) return
 	    const fetchData = async () => {
 	    if (!API_KEY) {
 	        throw new Error("API key is missing");
@@ -64,7 +65,7 @@ export default function Checklist() {
 	    };
 
 	    fetchData();
-	  }, [id, API_URL, API_KEY, router]);
+	  }, [id, API_URL, API_KEY]);
 
 	const handleInput = async (e: React.FormEvent<HTMLDivElement>) => {
 	  const target = e.target as HTMLElement; // Definisikan target
