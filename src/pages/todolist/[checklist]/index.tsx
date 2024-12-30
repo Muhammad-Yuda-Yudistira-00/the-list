@@ -114,25 +114,19 @@ export default function Checklist() {
 	  }
 	};
 
-	const handleDeleteChecklist = async (e: Reacr.MouseEvent<HTMLAnchorElement>) => {
+	const handleDeleteChecklist = async (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault()
 		if(!confirm("Are you sure?")) return
 
 		try{
 			if(!API_KEY) throw new Error("apikey is missing!")
 
-			const res = fetch(`${API_URL}/checklist/${checklist.id}`, {
+			fetch(`${API_URL}/checklist/${checklist.id}`, {
 				method: "DELETE",
 				headers: {
 					"x-api-key": API_KEY,
 				}
 			}).catch((err) => console.error("Error deleted data:", err))
-
-			if(res.ok) {
-				const error = await res.json()
-				console.error("failed to deleting data:", error.message)
-				return
-			}
 
 			router.push('/')
 		} catch(error) {
