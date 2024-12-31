@@ -1,15 +1,8 @@
 import { Checkbox, Label } from "flowbite-react";
 import { useState, useEffect } from "react";
-import { getCursorPosition, setCursorPosition } from "@/utils/CursorPosition";
+import { getCursorPosition, setCursorPosition } from "@/utils/todolist/CursorPosition";
 import { RiDeleteBin5Line } from "react-icons/ri";
-
-
-
-type TaskProps = {
-  id: number; 
-  title: string;
-  status: string;
-}
+import {TaskProps} from "@/types/TaskProps"
 
 export default function List({code}: {code: string}) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL
