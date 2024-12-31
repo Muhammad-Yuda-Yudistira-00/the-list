@@ -1,13 +1,11 @@
-import {useState, useEffect} from "react"
+import {useState} from "react"
 import { useRouter } from "next/router";
 
 import List from "@/components/content/List";
 
 import handleClick from "@/utils/todolist/checklist/handleClick";
-import handleInput from '@/utils/todolist/checklist/handleInput';
+import {handleInput} from '@/utils/todolist/checklist/handleInput';
 import handleDeleteChecklist from '@/utils/todolist/checklist/handleDeleteChecklist';
-
-import ChecklistProps from "@/types/ChecklistProps"
 
 import { useFetchChecklist } from "@/hooks/useFetchChecklist";
 
@@ -61,8 +59,8 @@ export default function Checklist() {
 													        e.preventDefault();
 													        handleDeleteChecklist({
 													          checklistId: checklist.id,
-													          API_URL,
-													          API_KEY,
+													          API_URL: API_URL!,
+													          API_KEY: API_KEY!,
 													          router,
 													        });
 													      }}>delete</a> checklist !</p>

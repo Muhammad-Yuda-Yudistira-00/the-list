@@ -1,7 +1,7 @@
 import handleCursorSelection from '@/utils/todolist/checklist/handleCursorSelection';
 
 const handleClick = (
-  e: React.MouseEvent<HTMLDivElement>,
+  e: React.MouseEvent<HTMLElement>,
   hasClickedTitle: boolean,
   setHasClickedTitle: (value: boolean) => void,
   hasClickedDescription: boolean,

@@ -1,6 +1,5 @@
 import { Checkbox, Label } from "flowbite-react";
 import { useState, useEffect } from "react";
-import { getCursorPosition, setCursorPosition } from "@/utils/todolist/CursorPosition";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import {TaskProps} from "@/types/TaskProps"
 import { fetchTasks } from "@/utils/todolist/tasks/fetchTasks";
@@ -22,7 +21,7 @@ export default function List({code}: {code: string}) {
 
   useEffect(() => {
     (async () => {
-      const data = await fetchTasks(API_URL, API_KEY, code);
+      const data = await fetchTasks(API_URL!, API_KEY!, code);
       setTasks(data);
     })();
   }, [code, API_URL, API_KEY]);
@@ -37,10 +36,10 @@ export default function List({code}: {code: string}) {
   };
 
 
-const handleDelete = (taskId) => {
+const handleDelete = (taskId: number) => {
   const confirmDelete = window.confirm("Are you sure you want to delete this task?");
   if (confirmDelete) {
-    deleteTask(taskId, setTasks, API_URL, API_KEY, code);
+    deleteTask(taskId, setTasks, API_URL!, API_KEY!, code);
   }
 } 
 
@@ -53,8 +52,8 @@ const handleDelete = (taskId) => {
           className="text-red-500 cursor-pointer" 
           onClick={() => handleDelete(task.id)}
         />
-        <Checkbox checked={task.status == 'done' ? true : false} onChange={(e) => handleChange(e, API_URL, API_KEY, code, setTasks)} data-id={task.id.toString()} />
-        <Label className={`text-gray-300 ${task.status == 'done' ? 'line-through' : ''}`} data-id={task.id.toString()} suppressContentEditableWarning contentEditable onInput={(e) => handleInput(e, API_URL, API_KEY, code, setTasks)} >{task.title}</Label>
+        <Checkbox checked={task.status == 'done' ? true : false} onChange={(e) => handleChange(e, API_URL!, API_KEY!, code, setTasks)} data-id={task.id.toString()} />
+        <Label className={`text-gray-300 ${task.status == 'done' ? 'line-through' : ''}`} data-id={task.id.toString()} suppressContentEditableWarning contentEditable onInput={(e) => handleInput(e, API_URL!, API_KEY!, code, setTasks)} >{task.title}</Label>
       </div>
       ))}
 
@@ -72,7 +71,7 @@ const handleDelete = (taskId) => {
       <button
         className="bg-blue-500 text-white rounded px-4 py-2"
         onClick={() =>
-                  addTask(newTask, setTasks, API_URL, API_KEY, code, resetNewTask)
+                  addTask(newTask, setTasks, API_URL!, API_KEY!, code, resetNewTask)
                 }
       >
         Add

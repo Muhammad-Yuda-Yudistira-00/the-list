@@ -1,6 +1,6 @@
 import {TaskProps} from "@/types/TaskProps"
 
-const deleteTask = async (taskId: number, setTasks: React.Dispatch<React.SetStateAction<TaskProps>>, API_URL: string, API_KEY: string, code: string) => {
+const deleteTask = async (taskId: number, setTasks: React.Dispatch<React.SetStateAction<TaskProps[]>>, API_URL: string, API_KEY: string, code: string) => {
     try {
       // Hapus task dari state
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
