@@ -1,10 +1,11 @@
 import { getCursorPosition, setCursorPosition } from "@/utils/todolist/CursorPosition";
 import ChecklistProps from "@/types/ChecklistProps"
+import normalizeCapitalization from "@/utils/todolist/checklist/normalizeCapitalization"
 
 
 export const handleInput = async (e: React.FormEvent<HTMLElement>, setChecklist: React.Dispatch<React.SetStateAction<ChecklistProps>>) => {
   const target = e.target as HTMLElement; // Definisikan target
-  const text = target.innerText.trim();
+  const rawText = target.innerText.trim();
   const fieldType = target.dataset.type;
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL
@@ -15,6 +16,9 @@ export const handleInput = async (e: React.FormEvent<HTMLElement>, setChecklist:
     return;
   }
 
+   // Normalisasi kapitalisasi teks
+  const normalizedText = normalizeCapitalization(rawText);
+
   // Simpan posisi kursor
   const cursorPosition = getCursorPosition();
 
@@ -22,7 +26,7 @@ export const handleInput = async (e: React.FormEvent<HTMLElement>, setChecklist:
     setChecklist((prevChecklist) => {
       const updatedChecklist = {
         ...prevChecklist,
-        [fieldType]: text,
+        [fieldType]: normalizedText,
       };
 
       // Kembalikan posisi kursor setelah state diperbarui
@@ -32,7 +36,7 @@ export const handleInput = async (e: React.FormEvent<HTMLElement>, setChecklist:
 
       // Kirim data ke API
       const formData = new FormData();
-      formData.append(fieldType, text);
+      formData.append(fieldType, normalizedText);
 
       if (!API_KEY) {
         throw new Error("API key is missing");

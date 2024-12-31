@@ -46,37 +46,37 @@ const handleDelete = (taskId: number) => {
   return (
     <div className="flex max-w-md flex-col gap-4" id="checkbox">
 
-    {tasks.map(task => (
-      <div key={task.id} className="flex items-center gap-2">
-        <RiDeleteBin5Line 
-          className="text-red-500 cursor-pointer" 
-          onClick={() => handleDelete(task.id)}
-        />
-        <Checkbox checked={task.status == 'done' ? true : false} onChange={(e) => handleChange(e, API_URL!, API_KEY!, code, setTasks)} data-id={task.id.toString()} />
-        <Label className={`text-gray-300 ${task.status == 'done' ? 'line-through' : ''}`} data-id={task.id.toString()} suppressContentEditableWarning contentEditable onInput={(e) => handleInput(e, API_URL!, API_KEY!, code, setTasks)} >{task.title}</Label>
-      </div>
-      ))}
+      {tasks.map(task => (
+        <div key={task.id} className="flex items-center gap-2">
+          <RiDeleteBin5Line 
+            className="text-red-500 cursor-pointer" 
+            onClick={() => handleDelete(task.id)}
+          />
+          <Checkbox checked={task.status == 'done' ? true : false} onChange={(e) => handleChange(e, API_URL!, API_KEY!, code, setTasks)} data-id={task.id.toString()} />
+          <Label className={`text-gray-300 ${task.status == 'done' ? 'line-through' : ''}`} data-id={task.id.toString()} suppressContentEditableWarning contentEditable onInput={(e) => handleInput(e, API_URL!, API_KEY!, code, setTasks)} >{task.title}</Label>
+        </div>
+        ))}
 
-    {/* Input untuk task baru */}
-    <div className="flex items-center gap-2">
-      <input
-        type="text"
-        className="border rounded p-2 w-full text-gray-700"
-        placeholder="Add new task..."
-        value={newTask.title}
-        onChange={(e) =>
-          setNewTask({ ...newTask, title: e.target.value })
-        }
-      />
-      <button
-        className="bg-blue-500 text-white rounded px-4 py-2"
-        onClick={() =>
-                  addTask(newTask, setTasks, API_URL!, API_KEY!, code, resetNewTask)
-                }
-      >
-        Add
-      </button>
-    </div>
+      {/* Input untuk task baru */}
+      <div className="flex items-center gap-2">
+        <input
+          type="text"
+          className="border rounded p-2 w-full text-gray-700"
+          placeholder="Add new task..."
+          value={newTask.title}
+          onChange={(e) =>
+            setNewTask({ ...newTask, title: e.target.value })
+          }
+        />
+        <button
+          className="bg-blue-500 text-white rounded px-4 py-2"
+          onClick={() =>
+                    addTask(newTask, setTasks, API_URL!, API_KEY!, code, resetNewTask)
+                  }
+        >
+          Add
+        </button>
+      </div>
 
     </div>
   );
