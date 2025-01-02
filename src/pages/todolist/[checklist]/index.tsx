@@ -35,7 +35,7 @@ export default function Checklist() {
 	 }
 
 	return (
-		<div className="py-4 m-auto flex flex-col items-center justify-center min-h-screen pt-20 pb-20">
+		<div className="py-4 m-auto flex flex-col items-center justify-center min-h-screen pt-24 pb-20">
 	      <div className="pb-8 text-center">
       		<h1 className={`text-5xl ${rubikVinyl.className}`} data-type="title" suppressContentEditableWarning contentEditable onInput={(e) => handleInput(e, setChecklist)} onClick={(e) =>
 								          handleClick(
