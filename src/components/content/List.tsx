@@ -13,8 +13,8 @@ import { robotoMono } from "@/libs/googleFonts/fontsStyle"
 const ItemType = "TASK";
 
 export default function List({code}: {code: string}) {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL
-  const API_KEY = process.env.NEXT_PUBLIC_API_KEY
+  const API_URL: string = process.env.NEXT_PUBLIC_API_URL || ''
+  const API_KEY: string = process.env.NEXT_PUBLIC_API_KEY || ''
   const [tasks, setTasks] = useState<TaskProps[]>([])
   const [newTask, setNewTask] = useState<TaskProps>({
     id: Date.now(),
@@ -142,9 +142,19 @@ function TaskItem({
     },
   }));
 
+   // Gunakan `useRef` untuk referensi elemen DOM
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  // Gabungkan `drag` dan `drop` dengan `useEffect`
+  useEffect(() => {
+    if (ref.current) {
+      drag(drop(ref));
+    }
+  }, [drag, drop]);
+
   return (
     <div
-      ref={(node) => drag(drop(node))}
+      ref={ref}
       className={`flex items-center gap-2 ${isDragging ? "opacity-50" : ""} border-b-2 border-gray-400 border-dashed`}
     >
       <RiDragMoveFill className="cursor-pointer flex-shrink-0 hover:text-colorPallete-pallete4" />

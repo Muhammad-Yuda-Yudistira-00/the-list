@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { cherryCreamSoda } from "@/libs/googleFonts/fontsStyle"
 import Link from "next/link"
 
