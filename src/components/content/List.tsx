@@ -8,7 +8,7 @@ import {handleChange} from "@/utils/todolist/tasks/handleChange";
 import {handleInput} from "@/utils/todolist/tasks/handleInput";
 import {addTask} from "@/utils/todolist/tasks/addTask";
 import { useDrag, useDrop } from "react-dnd";
-import { robotoMono } from "@/libs/googleFonts/fontsStyle"
+import { robotoMono, cherryCreamSoda } from "@/libs/googleFonts/fontsStyle"
 
 const ItemType = "TASK";
 
@@ -93,7 +93,7 @@ const handleDragEnd = (draggedId: number, droppedId: number) => {
           }
         />
         <button
-          className="bg-red-700 hover:bg-red-600 text-white rounded px-4 py-2"
+          className={`bg-white hover:bg-white text-black rounded px-4 py-2 ${cherryCreamSoda.className}`}
           onClick={() =>
                     addTask(newTask, setTasks, API_URL!, API_KEY!, code, resetNewTask)
                   }

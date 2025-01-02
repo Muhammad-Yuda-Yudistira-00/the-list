@@ -4,7 +4,7 @@ import Link from "next/link"
 
 export default function MyFooter() {
   return (
-    <Footer container className="bg-colorPallete-pallete2 rounded-none">
+    <Footer container className="bg-colorPallete-pallete2 rounded-none bg-transparent">
     	<Link href="/">
       		<Footer.Copyright by="The List™" year={2024} className="" />
     	</Link>
