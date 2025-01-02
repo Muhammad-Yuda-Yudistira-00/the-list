@@ -3,7 +3,7 @@ import {TaskProps} from "@/types/TaskProps"
 import { fetchTasks } from "@/utils/todolist/tasks/fetchTasks";
 import deleteTask from "@/utils/todolist/tasks/deleteTask";
 import {addTask} from "@/utils/todolist/tasks/addTask";
-import { robotoMono, cherryCreamSoda } from "@/libs/googleFonts/fontsStyle"
+import { cherryCreamSoda } from "@/libs/googleFonts/fontsStyle"
 import TaskItem from "@/components/content/TaskItem"
 
 export default function List({code}: {code: string}) {
