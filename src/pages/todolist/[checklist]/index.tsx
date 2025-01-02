@@ -9,6 +9,9 @@ import handleDeleteChecklist from '@/utils/todolist/checklist/handleDeleteCheckl
 
 import { useFetchChecklist } from "@/hooks/useFetchChecklist";
 
+import { rubikVinyl, robotoMono } from "@/libs/googleFonts/fontsStyle";
+import { RiAliensFill } from "react-icons/ri";
+
 export default function Checklist() {
 	const router = useRouter()
 	const {checklist: id} = router.query
@@ -32,9 +35,9 @@ export default function Checklist() {
 	 }
 
 	return (
-		<div className="py-4 m-auto flex flex-col items-center justify-center min-h-screen">
+		<div className="py-4 m-auto flex flex-col items-center justify-center min-h-screen pt-20 pb-20">
 	      <div className="pb-8 text-center">
-      		<h1 className="text-3xl" data-type="title" suppressContentEditableWarning contentEditable onInput={(e) => handleInput(e, setChecklist)} onClick={(e) =>
+      		<h1 className={`text-5xl ${rubikVinyl.className}`} data-type="title" suppressContentEditableWarning contentEditable onInput={(e) => handleInput(e, setChecklist)} onClick={(e) =>
 								          handleClick(
 								            e,
 								            hasClickedTitle,
@@ -43,7 +46,7 @@ export default function Checklist() {
 								            setHasClickedDescription
 								          )
 								        } >{checklist.title?? 'Untitle'}</h1>
-        	<small data-type="description" suppressContentEditableWarning contentEditable onInput={(e) => handleInput(e, setChecklist)} onClick={(e) =>
+        	<small data-type="description" className={robotoMono.className} suppressContentEditableWarning contentEditable onInput={(e) => handleInput(e, setChecklist)} onClick={(e) =>
 							          handleClick(
 							            e,
 							            hasClickedTitle,
@@ -55,7 +58,9 @@ export default function Checklist() {
 	      </div>
 	      <List code={checklist.code} />
 	      <div className="pt-4">
-	      	<p><a href="#" className="underline" onClick={(e) => {
+	      	<p className="text-lg">
+	      		If you done,
+	      		<a href="#" className="underline hover:text-logoColor font-bold" onClick={(e) => {
 													        e.preventDefault();
 													        handleDeleteChecklist({
 													          checklistId: checklist.id,
@@ -63,7 +68,7 @@ export default function Checklist() {
 													          API_KEY: API_KEY!,
 													          router,
 													        });
-													      }}>delete</a> checklist !</p>
+													      }}><RiAliensFill className="inline-block mr-1 text-2xl" />Delete</a> checklist !</p>
 	      </div>
 	    </div>
 		)

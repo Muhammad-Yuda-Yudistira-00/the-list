@@ -6,9 +6,11 @@ import Image from 'next/image';
 export default function MyNavbar() {
   // const {pathname} = useRouter()
   return (
-    <Navbar fluid rounded>
+    <Navbar fluid rounded className="">
       <NavbarBrand href="/">
-        <Image src="/globe.svg" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo"  width={20} height={20}  />
+        <div className="w-6 h-6 bg-black rounded-full overflow-hidden relative mr-2">
+          <Image src="/image/the-list-logo.png" className="mr-3 h-6 sm:h-9 w-6" alt="the list Logo" layout="fill"objectFit="cover" />
+        </div>
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white text-gray-700">The List</span>
       </NavbarBrand>
       <div className="flex md:order-2">

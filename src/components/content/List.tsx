@@ -8,6 +8,7 @@ import {handleChange} from "@/utils/todolist/tasks/handleChange";
 import {handleInput} from "@/utils/todolist/tasks/handleInput";
 import {addTask} from "@/utils/todolist/tasks/addTask";
 import { useDrag, useDrop } from "react-dnd";
+import { robotoMono } from "@/libs/googleFonts/fontsStyle"
 
 const ItemType = "TASK";
 
@@ -92,7 +93,7 @@ const handleDragEnd = (draggedId: number, droppedId: number) => {
           }
         />
         <button
-          className="bg-blue-500 text-white rounded px-4 py-2"
+          className="bg-red-700 hover:bg-red-600 text-white rounded px-4 py-2"
           onClick={() =>
                     addTask(newTask, setTasks, API_URL!, API_KEY!, code, resetNewTask)
                   }
@@ -144,20 +145,21 @@ function TaskItem({
   return (
     <div
       ref={(node) => drag(drop(node))}
-      className={`flex items-center gap-2 ${isDragging ? "opacity-50" : ""}`}
+      className={`flex items-center gap-2 ${isDragging ? "opacity-50" : ""} border-b-2 border-gray-400 border-dashed`}
     >
-      <RiDragMoveFill className="cursor-pointer flex-shrink-0" />
+      <RiDragMoveFill className="cursor-pointer flex-shrink-0 hover:text-colorPallete-pallete4" />
       <RiDeleteBin5Line
-        className="text-red-500 cursor-pointer flex-shrink-0"
+        className="text-red-500 hover:text-red-600 cursor-pointer flex-shrink-0"
         onClick={() => handleDelete(task.id)}
       />
       <Checkbox
         checked={task.status === "done"}
         onChange={(e) => handleChange(e, API_URL!, API_KEY!, code, setTasks)}
         data-id={task.id.toString()}
+        className="text-yellow-400 focus:ring-yellow-400 dark:ring-offset-yellow-400 dark:focus:ring-yellow-400"
       />
       <Label
-        className={`text-gray-300 ${task.status === "done" ? "line-through" : ""}`}
+        className={`text-gray-300 text-lg ${task.status === "done" ? "line-through" : ""} decoration-yellow-500/90 decoration-2 ${robotoMono.className}`}
         data-id={task.id.toString()}
         suppressContentEditableWarning
         contentEditable

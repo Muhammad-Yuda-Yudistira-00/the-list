@@ -13,6 +13,13 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        logoColor: "#c4f649",
+        colorPallete: {
+          pallete1: "#BAD8B6",
+          pallete2: "#E1EACD",
+          pallete3: "#F9F6E6",
+          pallete4: "#8D77AB",
+        }
       },
     },
   },
