@@ -72,7 +72,7 @@ export default function TaskItem({
         className="text-stone-500 focus:ring-stone-400 dark:ring-offset-stone-400 dark:focus:ring-stone-400"
       />
       <Label
-        className={`text-logoColor text-lg font-bold ${task.status === "done" ? "line-through" : ""} decoration-white/80 decoration-wavy decoration-2 ${robotoMono.className}`}
+        className={`text-logoColor text-lg font-bold ${task.status === "done" ? "line-through" : ""} decoration-white/80 decoration-2 ${robotoMono.className}`}
         data-id={task.id.toString()}
         suppressContentEditableWarning
         contentEditable

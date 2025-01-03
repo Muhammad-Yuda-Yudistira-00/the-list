@@ -44,19 +44,77 @@ const handleDelete = (taskId: number) => {
   }
 } 
 
-const handleDragEnd = (draggedId: number, droppedId: number) => {
-    const updatedTasks = [...tasksRef.current];
-    const draggedIndex = updatedTasks.findIndex((task) => task.id === draggedId);
-    const droppedIndex = updatedTasks.findIndex((task) => task.id === droppedId);
+// const handleDragEnd = (draggedId: number, droppedId: number) => {
+//     const updatedTasks = [...tasksRef.current];
+//     const draggedIndex = updatedTasks.findIndex((task) => task.id === draggedId);
+//     const droppedIndex = updatedTasks.findIndex((task) => task.id === droppedId);
 
-    if (draggedIndex === -1 || droppedIndex === -1) return;
+//     if (draggedIndex === -1 || droppedIndex === -1) return;
 
-    // Move dragged task to new position
-    const [draggedTask] = updatedTasks.splice(draggedIndex, 1);
-    updatedTasks.splice(droppedIndex, 0, draggedTask);
+//     // Move dragged task to new position
+//     const [draggedTask] = updatedTasks.splice(draggedIndex, 1);
+//     updatedTasks.splice(droppedIndex, 0, draggedTask);
 
-  setTasks(updatedTasks);
-  };
+//   setTasks(updatedTasks);
+//   };
+const handleDragEnd = async (draggedId: number, droppedId: number) => {
+  const updatedTasks = [...tasksRef.current];
+
+  // Temukan indeks untuk draggedId dan droppedId
+  const draggedIndex = updatedTasks.findIndex((task) => task.id === draggedId);
+  const droppedIndex = updatedTasks.findIndex((task) => task.id === droppedId);
+
+  // Validasi indeks
+  if (draggedIndex === -1 || droppedIndex === -1) {
+    console.error("Invalid drag or drop index.");
+    return;
+  }
+
+  // Pindahkan tugas yang diseret ke posisi baru
+  const [draggedTask] = updatedTasks.splice(draggedIndex, 1);
+  if (!draggedTask) {
+    console.error("Dragged task not found.");
+    return;
+  }
+  updatedTasks.splice(droppedIndex, 0, draggedTask);
+
+  setTasks(updatedTasks); // Perbarui state lokal untuk feedback UI
+
+  try {
+    // Kirim permintaan untuk memperbarui urutan tugas
+    const requests = updatedTasks.map((task, index) => {
+      const formData = new FormData();
+      formData.append("order", (index + 1).toString());
+
+      return fetch(`${API_URL}/checklist/${code}/task/${task.id}`, {
+        method: "PUT",
+        headers: {
+          "x-api-key": API_KEY,
+        },
+        body: formData,
+      });
+    });
+
+    // Tunggu semua permintaan selesai
+    const responses = await Promise.all(requests);
+
+    // Periksa hasil respons
+    const allSuccessful = responses.every((res) => res.ok);
+
+    if (allSuccessful) {
+      console.info("Tasks reordered successfully.");
+      const refreshedTasks = await fetchTasks(API_URL, API_KEY, code); // Sinkronisasi ulang
+      setTasks(refreshedTasks);
+    } else {
+      console.error("Failed to reorder some tasks.");
+    }
+  } catch (error) {
+    console.error("Error during task reordering:", error);
+  }
+};
+
+
+
 
   return (
     <div className="flex max-w-2xl flex-col gap-4" id="checkbox">
