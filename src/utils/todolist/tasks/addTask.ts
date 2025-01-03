@@ -1,4 +1,5 @@
 import { TaskProps } from "@/types/TaskProps";
+import { fetchTasks } from "@/utils/todolist/tasks/fetchTasks";
 
 export const addTask = async (
   newTask: TaskProps,
@@ -11,10 +12,7 @@ export const addTask = async (
   if (!newTask.title.trim()) return; // Jangan tambahkan task kosong
 
   try {
-    // Tambahkan task baru ke state
-    setTasks((prevTasks) => [...prevTasks, newTask]);
-
-    // Kirim ke API
+    // Kirim tugas baru ke API
     const formData = new FormData();
     formData.append("title", newTask.title);
     formData.append("status", newTask.status);
@@ -32,21 +30,21 @@ export const addTask = async (
     });
 
     const result = await res.json();
+
     if (result.status && result.statusCode === 200) {
       console.info(result.message);
-      // Perbarui ID dengan ID dari respons API
-      setTasks((prevTasks) =>
-        prevTasks.map((task) =>
-          task.id === newTask.id ? { ...task, id: result.data.id } : task
-        )
-      );
+
+      // Ambil ulang daftar tugas dari server
+      const updatedTasks = await fetchTasks(API_URL, API_KEY, code);
+      console.log("Updated tasks from API:", updatedTasks); // Debugging
+      setTasks(updatedTasks);
     } else {
       console.error(result.message);
     }
   } catch (error) {
     console.error("Error adding new task:", error);
   } finally {
-    // Reset task baru
+    // Reset input task baru
     resetNewTask();
   }
 };

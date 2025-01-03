@@ -1,4 +1,5 @@
 import {TaskProps} from "@/types/TaskProps"
+import { fetchTasks } from "@/utils/todolist/tasks/fetchTasks";
 
 const deleteTask = async (taskId: number, setTasks: React.Dispatch<React.SetStateAction<TaskProps[]>>, API_URL: string, API_KEY: string, code: string) => {
     try {
@@ -21,6 +22,8 @@ const deleteTask = async (taskId: number, setTasks: React.Dispatch<React.SetStat
 
       if (result.status && result.statusCode === 200) {
         console.info("Task deleted successfully:", result.message);
+        const updatedTasks = await fetchTasks(API_URL, API_KEY, code);
+        setTasks(updatedTasks);
       } else {
         console.error("Failed to delete task:", result.message);
       }
