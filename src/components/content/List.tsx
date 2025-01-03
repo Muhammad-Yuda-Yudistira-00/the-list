@@ -89,7 +89,7 @@ const handleDragEnd = (draggedId: number, droppedId: number) => {
           }
         />
         <button
-          className={`bg-white hover:bg-white text-black rounded px-4 py-2 ${cherryCreamSoda.className}`}
+          className={`bg-white hover:bg-white text-blue-500 uppercase rounded px-4 py-2 ${cherryCreamSoda.className}`}
           onClick={() =>
                     addTask(newTask, setTasks, API_URL!, API_KEY!, code, resetNewTask)
                   }

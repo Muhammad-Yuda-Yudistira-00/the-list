@@ -1,19 +1,19 @@
 import { NextRouter } from 'next/router'; // Import tipe untuk router jika menggunakan TypeScript
 
 interface DeleteChecklistProps {
-  checklistId: number;
+  checklistCode: string;
   API_URL: string;
   API_KEY: string | undefined;
   router: NextRouter;
 }
 
-const handleDeleteChecklist = async ({ checklistId, API_URL, API_KEY, router }: DeleteChecklistProps) => {
+const handleDeleteChecklist = async ({ checklistCode, API_URL, API_KEY, router }: DeleteChecklistProps) => {
   if (!confirm("Are you sure?")) return;
 
   try {
     if (!API_KEY) throw new Error("API key is missing!");
 
-    await fetch(`${API_URL}/checklist/${checklistId}`, {
+    await fetch(`${API_URL}/checklist/${checklistCode}`, {
       method: "DELETE",
       headers: {
         "x-api-key": API_KEY,

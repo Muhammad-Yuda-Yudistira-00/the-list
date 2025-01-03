@@ -26,10 +26,10 @@ export default function Jumbotron() {
 
       if (result.status && result.statusCode === 201) {
         console.info("Checklist created successfully:", result.message);
-        const checklistId = result.data.id;
+        const checklistCode = result.data.code;
 
-        // Redirect ke halaman todolist dengan ID checklist
-        router.push(`/todolist/${checklistId}`);
+        // Redirect ke halaman todolist dengan code checklist
+        router.push(`/todolist/${checklistCode}`);
       } else {
         console.error("Failed to create checklist:", result.message);
       }

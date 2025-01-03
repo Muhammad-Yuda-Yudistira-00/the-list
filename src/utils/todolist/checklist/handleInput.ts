@@ -42,7 +42,7 @@ export const handleInput = async (e: React.FormEvent<HTMLElement>, setChecklist:
         throw new Error("API key is missing");
       }
 
-      fetch(`${API_URL}/checklist/${prevChecklist.id}`, {
+      fetch(`${API_URL}/checklist/${prevChecklist.code}`, {
         method: "PATCH",
         headers: {
           "x-api-key": API_KEY,

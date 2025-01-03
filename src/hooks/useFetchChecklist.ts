@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import ChecklistProps from "@/types/ChecklistProps";
 
 export const useFetchChecklist = (
-  id: string | string[] | undefined,
+  code: string | string[] | undefined,
   API_URL: string | undefined,
   API_KEY: string | undefined
 ) => {
@@ -16,12 +16,12 @@ export const useFetchChecklist = (
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!id || !API_URL || !API_KEY) return;
+    if (!code || !API_URL || !API_KEY) return;
 
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`${API_URL}/checklist/${id}`, {
+        const response = await fetch(`${API_URL}/checklist/${code}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export const useFetchChecklist = (
     };
 
     fetchData();
-  }, [id, API_URL, API_KEY]);
+  }, [code, API_URL, API_KEY]);
 
   return { checklist, setChecklist, isLoading };
 };

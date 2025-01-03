@@ -14,14 +14,14 @@ import { RiAliensFill } from "react-icons/ri";
 
 export default function Checklist() {
 	const router = useRouter()
-	const {checklist: id} = router.query
+	const {checklist: code} = router.query
 	const [hasClickedTitle, setHasClickedTitle] = useState(false);
 	const [hasClickedDescription, setHasClickedDescription] = useState(false);
 	
 	const API_URL = process.env.NEXT_PUBLIC_API_URL
 	const API_KEY = process.env.NEXT_PUBLIC_API_KEY
 
-	const { checklist, setChecklist, isLoading } = useFetchChecklist(id, API_URL, API_KEY);
+	const { checklist, setChecklist, isLoading } = useFetchChecklist(code, API_URL, API_KEY);
 
 
 	 if(isLoading) {
@@ -64,7 +64,7 @@ export default function Checklist() {
 		      		<a href="#" className="underline hover:text-logoColor font-bold" onClick={(e) => {
 														        e.preventDefault();
 														        handleDeleteChecklist({
-														          checklistId: checklist.id,
+														          checklistCode: checklist.code,
 														          API_URL: API_URL!,
 														          API_KEY: API_KEY!,
 														          router,
