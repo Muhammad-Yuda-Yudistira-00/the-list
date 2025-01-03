@@ -58,21 +58,21 @@ export default function TaskItem({
   return (
     <div
       ref={ref}
-      className={`flex items-center gap-2 ${isDragging ? "opacity-50" : ""} border-b-2 border-gray-400 border-dashed pt-2`}
+      className={`flex items-center gap-2 ${isDragging ? "opacity-50" : ""} border-b-2 border-white border-dashed pt-2`}
     >
-      <RiDragMoveFill className="cursor-pointer flex-shrink-0 hover:text-colorPallete-pallete4" />
+      <RiDragMoveFill className="cursor-pointer flex-shrink-0 hover:text-stone-800 hover:scale-150 text-stone-700" />
       <RiDeleteBin5Line
-        className="text-red-500 hover:text-red-600 cursor-pointer flex-shrink-0"
+        className="text-white hover:text-logoColor cursor-pointer flex-shrink-0"
         onClick={() => handleDelete(task.id)}
       />
       <Checkbox
         checked={task.status === "done"}
         onChange={(e) => handleChange(e, API_URL!, API_KEY!, code, setTasks)}
         data-id={task.id.toString()}
-        className="text-yellow-400 focus:ring-yellow-400 dark:ring-offset-yellow-400 dark:focus:ring-yellow-400"
+        className="text-stone-500 focus:ring-stone-400 dark:ring-offset-stone-400 dark:focus:ring-stone-400"
       />
       <Label
-        className={`text-gray-300 text-lg ${task.status === "done" ? "line-through" : ""} decoration-yellow-500/90 decoration-2 ${robotoMono.className}`}
+        className={`text-logoColor text-lg font-bold ${task.status === "done" ? "line-through" : ""} decoration-white/80 decoration-wavy decoration-2 ${robotoMono.className}`}
         data-id={task.id.toString()}
         suppressContentEditableWarning
         contentEditable

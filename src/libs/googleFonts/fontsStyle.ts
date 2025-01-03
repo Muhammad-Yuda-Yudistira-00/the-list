@@ -15,3 +15,8 @@ export const robotoMono = Roboto_Mono({
 	subsets: ["latin"],
 	weight: ["400"]
 })
+
+// export const aguDisplay = Agu_Display({
+//   subsets: ["latin"],
+//   weight: ["400"]
+// })

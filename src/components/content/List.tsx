@@ -61,7 +61,7 @@ const handleDragEnd = (draggedId: number, droppedId: number) => {
   return (
     <div className="flex max-w-2xl flex-col gap-4" id="checkbox">
 
-      <div className="max-h-96 overflow-y-scroll px-8 pb-8">
+      <div className="max-h-96 overflow-y-scroll px-8 pb-8 bg-gradient-to-b from-blue-700/20 to-blue-500">
         {tasks.map((task, index) => (
           <TaskItem
             key={task.id}

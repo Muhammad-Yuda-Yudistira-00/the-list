@@ -9,7 +9,7 @@ import handleDeleteChecklist from '@/utils/todolist/checklist/handleDeleteCheckl
 
 import { useFetchChecklist } from "@/hooks/useFetchChecklist";
 
-import { rubikVinyl, robotoMono } from "@/libs/googleFonts/fontsStyle";
+import { robotoMono } from "@/libs/googleFonts/fontsStyle";
 import { RiAliensFill } from "react-icons/ri";
 
 export default function Checklist() {
@@ -35,9 +35,19 @@ export default function Checklist() {
 	 }
 
 	return (
-		<div className="py-4 m-auto flex flex-col items-center justify-center min-h-screen pt-24 pb-20">
-	      <div className="pb-8 text-center">
-      		<h1 className={`text-5xl ${rubikVinyl.className}`} data-type="title" suppressContentEditableWarning contentEditable onInput={(e) => handleInput(e, setChecklist)} onClick={(e) =>
+		<>
+			<div className="py-4 m-auto flex flex-col items-center justify-center min-h-screen pt-24 pb-20 w-full bg-[url('/image/bg-todolist-2.jpg')] bg-cover bg-fixed">
+		      <div className="pb-8 text-center">
+	      		<h1 className={`text-5xl ${robotoMono.className} text-stone-700`} data-type="title" suppressContentEditableWarning contentEditable onInput={(e) => handleInput(e, setChecklist)} onClick={(e) =>
+									          handleClick(
+									            e,
+									            hasClickedTitle,
+									            setHasClickedTitle,
+									            hasClickedDescription,
+									            setHasClickedDescription
+									          )
+									        } >{checklist.title?? 'Untitle'}</h1>
+	        	<small data-type="description" className={`${robotoMono.className} bg-stone-700`} suppressContentEditableWarning contentEditable onInput={(e) => handleInput(e, setChecklist)} onClick={(e) =>
 								          handleClick(
 								            e,
 								            hasClickedTitle,
@@ -45,31 +55,23 @@ export default function Checklist() {
 								            hasClickedDescription,
 								            setHasClickedDescription
 								          )
-								        } >{checklist.title?? 'Untitle'}</h1>
-        	<small data-type="description" className={robotoMono.className} suppressContentEditableWarning contentEditable onInput={(e) => handleInput(e, setChecklist)} onClick={(e) =>
-							          handleClick(
-							            e,
-							            hasClickedTitle,
-							            setHasClickedTitle,
-							            hasClickedDescription,
-							            setHasClickedDescription
-							          )
-							        } >{checklist.description?? 'Description...'}</small>
-	      </div>
-	      <List code={checklist.code} />
-	      <div className="pt-4">
-	      	<p className="text-lg">
-	      		If you done,
-	      		<a href="#" className="underline hover:text-logoColor font-bold" onClick={(e) => {
-													        e.preventDefault();
-													        handleDeleteChecklist({
-													          checklistId: checklist.id,
-													          API_URL: API_URL!,
-													          API_KEY: API_KEY!,
-													          router,
-													        });
-													      }}><RiAliensFill className="inline-block mr-1 text-2xl" />Delete</a> checklist !</p>
-	      </div>
-	    </div>
+								        } >{checklist.description?? 'Description...'}</small>
+		      </div>
+		      <List code={checklist.code} />
+		      <div className="pt-4">
+		      	<p className="text-lg">
+		      		If you done,
+		      		<a href="#" className="underline hover:text-logoColor font-bold" onClick={(e) => {
+														        e.preventDefault();
+														        handleDeleteChecklist({
+														          checklistId: checklist.id,
+														          API_URL: API_URL!,
+														          API_KEY: API_KEY!,
+														          router,
+														        });
+														      }}><RiAliensFill className="inline-block mr-1 text-2xl" />Delete</a> checklist !</p>
+		      </div>
+		    </div>
+		</>
 		)
 }
