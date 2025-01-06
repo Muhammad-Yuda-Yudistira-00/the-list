@@ -44,19 +44,6 @@ const handleDelete = (taskId: number) => {
   }
 } 
 
-// const handleDragEnd = (draggedId: number, droppedId: number) => {
-//     const updatedTasks = [...tasksRef.current];
-//     const draggedIndex = updatedTasks.findIndex((task) => task.id === draggedId);
-//     const droppedIndex = updatedTasks.findIndex((task) => task.id === droppedId);
-
-//     if (draggedIndex === -1 || droppedIndex === -1) return;
-
-//     // Move dragged task to new position
-//     const [draggedTask] = updatedTasks.splice(draggedIndex, 1);
-//     updatedTasks.splice(droppedIndex, 0, draggedTask);
-
-//   setTasks(updatedTasks);
-//   };
 const handleDragEnd = async (draggedId: number, droppedId: number) => {
   const updatedTasks = [...tasksRef.current];
 
@@ -87,7 +74,7 @@ const handleDragEnd = async (draggedId: number, droppedId: number) => {
       formData.append("order", (index + 1).toString());
 
       return fetch(`${API_URL}/checklist/${code}/task/${task.id}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: {
           "x-api-key": API_KEY,
         },
